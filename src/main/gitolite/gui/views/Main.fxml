@@ -2,6 +2,6 @@
 	
 <?import javafx.scene.layout.BorderPane?>
 	
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.MainViewController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.gitolite.gui.controllers.MainViewController">
 	<!-- TODO Add Nodes -->
 </BorderPane>
