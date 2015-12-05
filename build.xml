@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="runnable-jar" name="GitoliteFX">
+	
+	<!-- Class with main method -->
+	<property name="mainClass" value="main.Main" />
+	
+	<!-- Final jar file name -->
+	<property name="jarName" value="GitoliteFX.jar" />
+	
+	<!-- Build directories -->
+	<property name="buildDir" value="build" />
+	<property name="buildSrc" value="${buildDir}/src" />
+	<property name="buildLib" value="${buildDir}/lib" />
+	<property name="buildClass" value="${buildDir}/class" />
+	<property name="distribution" value="${buildDir}/dist" />
+
+	<!-- Project src and libraries -->
+	<property name="projectSrc" value="src" />
+	<property name="projectLibs" value="libs" />
+	
+	<path id="master-classpath">
+		<fileset dir="${projectLibs}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
+	<property environment="env" />
+	<tstamp>
+		<format property="TODAY" pattern="yyyy-MM-dd" />
+	</tstamp>
+	
+	<!-- Start of targets -->
+			
+	<target name="clean" description="Delete the build directories">
+		<echo message="Cleaning build directory" />
+		<delete dir="${buildDir}" />
+	</target>
+		
+	<target name="createBuildDir" description="Create the build directories">
+		<echo message="Creating build directory" />
+		<mkdir dir="${buildSrc}" />
+		<mkdir dir="${buildLib}" />
+		<mkdir dir="${buildClass}" />
+		<mkdir dir="${distribution}" />
+	</target>
+			
+	<target name="copy_src" depends="createBuildDir" description="Copy the src files to the build src directory">
+		<echo message="Copying src files to build directory" />
+		<copy todir="${buildSrc}">
+			<fileset dir="${projectSrc}">
+			    <include name="**/*"/>
+			</fileset>
+		</copy>
+	</target>
+				
+	<target name="copy_libs" description="Copy the library files to build directory">
+		<echo message="Copying .jar libraries to build directory" />
+		<copy todir="${buildLib}">
+			<fileset dir="${projectLibs}">
+			    <include name="**/*.jar"/>
+			</fileset>
+		</copy>
+	</target>
+				
+	<target name="compile" depends="copy_src,copy_libs" description="Compile the src code">
+		<javac srcdir="${buildSrc}"
+			destdir="${buildClass}"
+			includeantruntime="false"
+			target="1.8">
+			<classpath refid="master-classpath"/>
+		</javac>
+		<copy todir="${buildClass}">
+			<fileset dir="${projectSrc}">
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+			
+		<!-- Create build information file -->
+		<echo message="Creating build information file" />
+		<echo file="${buildClass}/resource/buildInfo.txt" message="${env.BUILD_NUMBER}|${TODAY}" />
+	</target>
+		
+	<target name="cleanAndBuild" depends="clean,runnable-jar">
+		<echo message="Clening build directory and creating executable jar" />
+	</target>
+				
+    <target name="runnable-jar" depends="compile">
+		<fileset dir="${buildLib}" id="jar.libs">
+	      <include name="*.jar"/>
+	    </fileset>
+		<pathconvert pathsep=" " property="pathJars" refid="jar.libs">
+			<mapper type="flatten"/>
+		</pathconvert>
+		<echo message="jars: ${pathJars}" />
+        <jar destfile="${distribution}/${jarName}">
+            <manifest>
+                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+                <attribute name="Rsrc-Main-Class" value="${mainClass}"/>
+                <attribute name="Class-Path" value="."/>
+                <attribute name="Rsrc-Class-Path" value="./ ${pathJars}"/>
+            </manifest>
+            <zipfileset src="jar-in-jar-loader.zip"/>
+            <fileset dir="${buildClass}"/>
+            <zipfileset dir="${projectLibs}" includes="*.jar"/>
+        </jar>
+    </target>
+
+</project>
