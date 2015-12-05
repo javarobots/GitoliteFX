@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gitolite.domain.models;
+package main.gitolite.domain.models;
 
 import static org.hamcrest.CoreMatchers.*;
 

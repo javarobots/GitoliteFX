@@ -1,4 +1,4 @@
-package gitolite.domain.mocks;
+package main.gitolite.domain.mocks;
 
 public class MockConf {
 

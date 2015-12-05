@@ -1,4 +1,4 @@
-package gitolite.domain.parsers;
+package main.gitolite.domain.parsers;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import gitolite.domain.mocks.MockConf;
+import main.gitolite.domain.mocks.MockConf;
 import main.gitolite.domain.models.ConfigGroup;
 import main.gitolite.domain.models.ConfigModel;
 import main.gitolite.domain.parsers.GitoliteConfParser;
