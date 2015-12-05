@@ -1,0 +1,101 @@
+package main.gitolite.domain.parsers;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.util.Arrays;
+
+import main.gitolite.domain.models.ConfigGroup;
+import main.gitolite.domain.models.ConfigModel;
+
+public class GitoliteConfParser {
+
+	public GitoliteConfParser() {
+	}
+
+	public ConfigModel parse(String conf) {
+		ConfigModel configModel = new ConfigModel();
+
+		String[] lines = conf.split("\n");
+
+		for (String line : lines) {
+			if (lineRepresentsAGroup(line)) {
+				configModel.add(buildGroup(line));
+			}
+
+			if (lineRepresentsARepo(line)) {
+			}
+		}
+
+		return configModel;
+	}
+
+	public void parse(Path path) throws IOException {
+		if (!Files.exists(path, LinkOption.NOFOLLOW_LINKS))
+			throw new FileNotFoundException();
+
+		String line;
+		try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
+			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
+			}
+		}
+	}
+
+	private boolean lineRepresentsAGroup(String line) {
+		return line.startsWith("@");
+	}
+
+	private boolean lineRepresentsARepo(String line) {
+		return line.startsWith("repo");
+	}
+
+	private ConfigGroup buildGroup(String line) {
+		String[] groupString = removeEquals(line).split(" ");
+		ConfigGroup group = new ConfigGroup();
+		group.setName(groupString[0]);
+		groupString = removeGroupNameFromStringArray(groupString);
+		buildGroupItemsAndComments(group, groupString);
+		return group;
+	}
+
+	private void buildGroupItemsAndComments(ConfigGroup group, String[] groupString) {
+		int length = groupString.length;
+		for(int i = 0; i < length; i++) {
+			if(!groupString[i].isEmpty())
+			{
+				if(isBeginningOfComments(groupString[i])) {
+					addCommentsToGroup(Arrays.copyOfRange(groupString, i, length), group);
+					break;
+				}
+				group.addItem(groupString[i]);
+			}
+		}
+	}
+
+	private void addCommentsToGroup(String[] stringArray, ConfigGroup group) {
+		StringBuilder comment = new StringBuilder();
+		for (String word : stringArray) {
+			if (!word.isEmpty())
+				comment.append(word).append(" ");
+		}
+		group.addComments(comment.toString());
+	}
+
+	private boolean isBeginningOfComments(String s) {
+		return s.startsWith("#");
+	}
+
+	private String[] removeGroupNameFromStringArray(String[] groupString) {
+		return Arrays.copyOfRange(groupString, 1, groupString.length);
+	}
+
+	private String removeEquals(String line) {
+		return line.replace("=", "").trim();
+	}
+
+}
