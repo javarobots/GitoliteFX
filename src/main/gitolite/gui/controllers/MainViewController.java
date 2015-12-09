@@ -13,6 +13,11 @@ public class MainViewController {
     public void initialize()
     {
         setupCloseMenuItem();
+        
+        //TODO utilize preferences for checking if gitolite directory
+        //directory has been defined. If it has add in view for existing tabs
+        //And if it hasn't show a dialog asking the user to select
+        //the gitolite admin repo root directory
     }
 
     private void setupCloseMenuItem()
