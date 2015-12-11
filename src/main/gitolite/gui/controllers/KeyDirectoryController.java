@@ -1,5 +1,7 @@
 package main.gitolite.gui.controllers;
 
+import de.jensd.fx.glyphs.GlyphsDude;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
@@ -15,8 +17,12 @@ public class KeyDirectoryController {
     @FXML private Button addButton;
     @FXML private TextArea keyTextArea;
     
-    public KeyDirectoryController()
+    public void initialize()
     {
+        deleteButton.setText("");
+        deleteButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.MINUS));
         
+        addButton.setText("");
+        addButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PLUS));
     }
 }
