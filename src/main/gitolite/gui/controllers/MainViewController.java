@@ -1,23 +1,40 @@
 package main.gitolite.gui.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
+import main.gitolite.domain.models.ApplicationModel;
+
 
 public class MainViewController {
     
     @FXML private MenuItem closeMenuItem;
-    @FXML private MenuItem aboutMenuItem; 
+    @FXML private MenuItem aboutMenuItem;
+    @FXML private MenuItem gitoliteDirectorySelectMenuItem;
     @FXML private Tab publicKeysTab;
+    @FXML private Tab reposTab;
     
     public void initialize()
     {
         setupCloseMenuItem();
         
-        //TODO utilize preferences for checking if gitolite directory
-        //directory has been defined. If it has add in view for existing tabs
-        //And if it hasn't show a dialog asking the user to select
-        //the gitolite admin repo root directory
+        checkForDefinedGitRepoDirectory();
+    }
+
+    private void checkForDefinedGitRepoDirectory()
+    {
+        if (!ApplicationModel.getInstance().isRepoDirectoryDefined())
+        {
+            publicKeysTab.setDisable(true);
+            reposTab.setDisable(true);
+            Platform.runLater(() -> {
+                Alert alert = new Alert(AlertType.ERROR, "Please select the root directory of the git-o-lite admin repository.");
+                alert.showAndWait();
+            });
+        }
     }
 
     private void setupCloseMenuItem()
