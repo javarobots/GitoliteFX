@@ -47,6 +47,16 @@ public class ApplicationModel {
         }
     }
     
+    public void setRepoDirectory(File directory)
+    {
+        this.prefs.put(DIR_KEY, directory.getAbsolutePath());
+    }
+    
+    public File getRepoDirectory()
+    {
+        return new File (prefs.get(DIR_KEY, DIR_KEY));
+    }
+    
     
     
 }
