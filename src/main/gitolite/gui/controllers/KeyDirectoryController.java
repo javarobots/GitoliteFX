@@ -39,6 +39,11 @@ public class KeyDirectoryController {
         
         readTheKeyDirectory();
         
+        setupListenerForKeyTableView();
+    }
+
+    private void setupListenerForKeyTableView()
+    {
         currentKeyTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             Optional<UserKey> userKey = Optional.ofNullable(newVal);
             if (userKey.isPresent())
@@ -52,7 +57,6 @@ public class KeyDirectoryController {
                 keyTextArea.setText("");
             }
         });
-        
     }
 
     private void readTheKeyDirectory()
