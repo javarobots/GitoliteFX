@@ -10,7 +10,7 @@
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TableView fx:id="currentKeyTableView" prefHeight="200.0" prefWidth="200.0" />
+            <TableView fx:id="currentKeyTableView" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" />
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
                   <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0">
@@ -23,7 +23,7 @@
                      </children>
                   </HBox>
                   <Label text="Public Key:" />
-                  <TextArea fx:id="keyTextArea" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  <TextArea fx:id="keyTextArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>
