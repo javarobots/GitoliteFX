@@ -31,13 +31,7 @@ public class ApplicationModel {
             return false;
         }
         
-        //Check for repo structure
-        String baseDir = prefs.get(DIR_KEY, DIR_DEFAULT);
-        File dotGit = new File(baseDir, ".git");
-        File conf = new File(baseDir, "conf");
-        File keyDir = new File(baseDir, "keyDir");
-        
-        if (dotGit.exists() && conf.exists() && keyDir.exists())
+        if (getDotGitDir().exists() && getConfDir().exists() && getKeyDir().exists())
         {
             return true;
         }
@@ -57,6 +51,22 @@ public class ApplicationModel {
         return new File (prefs.get(DIR_KEY, DIR_KEY));
     }
     
+    public File getDotGitDir()
+    {
+        String baseDir = prefs.get(DIR_KEY, DIR_DEFAULT);
+        return new File(baseDir, ".git");
+    }
     
+    public File getConfDir()
+    {
+        String baseDir = prefs.get(DIR_KEY, DIR_DEFAULT);
+       return new File(baseDir, "conf");
+    }
+    
+    public File getKeyDir()
+    {
+        String baseDir = prefs.get(DIR_KEY, DIR_DEFAULT);
+        return new File(baseDir, "keyDir");
+    }
     
 }
