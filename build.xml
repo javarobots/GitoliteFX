@@ -5,7 +5,7 @@
 	<property name="mainClass" value="main.Main" />
 	
 	<!-- Final jar file name -->
-	<property name="jarName" value="GitoliteFX.jar" />
+	<property name="jarName" value="GitoliteFX" />
 	
 	<!-- Build directories -->
 	<property name="buildDir" value="build" />
@@ -27,6 +27,7 @@
 	<property environment="env" />
 	<tstamp>
 		<format property="TODAY" pattern="yyyy-MM-dd" />
+		<format property="buildDate" pattern="yyyyMMdd" />
 	</tstamp>
 	
 	<!-- Start of targets -->
@@ -92,7 +93,7 @@
 			<mapper type="flatten"/>
 		</pathconvert>
 		<echo message="jars: ${pathJars}" />
-        <jar destfile="${distribution}/${jarName}-${TODAY}-r${env.BUILD_NUMBER}">
+        <jar destfile="${distribution}/${jarName}-${buildDate}r${env.BUILD_NUMBER}.jar">
             <manifest>
                 <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
                 <attribute name="Rsrc-Main-Class" value="${mainClass}"/>
