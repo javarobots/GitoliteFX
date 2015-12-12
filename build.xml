@@ -92,7 +92,7 @@
 			<mapper type="flatten"/>
 		</pathconvert>
 		<echo message="jars: ${pathJars}" />
-        <jar destfile="${distribution}/${jarName}">
+        <jar destfile="${distribution}/${jarName}-${TODAY}-r${env.BUILD_NUMBER}">
             <manifest>
                 <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
                 <attribute name="Rsrc-Main-Class" value="${mainClass}"/>
