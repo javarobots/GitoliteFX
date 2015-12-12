@@ -10,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.stage.DirectoryChooser;
 import main.gitolite.domain.models.ApplicationModel;
+import main.gitolite.gui.views.About;
 import main.gitolite.gui.views.KeyDirectory;
 
 
@@ -36,6 +37,10 @@ public class MainViewController {
                 ApplicationModel.getInstance().setRepoDirectory(selectedDirectory);
                 checkForDefinedGitRepoDirectory();
             }
+        });
+        
+        aboutMenuItem.setOnAction(event -> {
+            new About();
         });
     }
 
