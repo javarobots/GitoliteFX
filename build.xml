@@ -97,7 +97,7 @@
 		<echo message="Clening build directory and creating executable jar" />
 	</target>
 				
-    <target name="runnable-jar" depends="compile">
+    <target name="runnable-jar">
 		<fileset dir="${buildLib}" id="jar.libs">
 	      <include name="*.jar"/>
 	    </fileset>
@@ -118,7 +118,7 @@
         </jar>
     </target>
 	
-	<target name="junitTests" depends="compile">
+	<target name="junitTests" depends="clean,compile">
 		<junit printsummary="yes" haltonerror="no" haltonfailure="no">
 			<formatter type="xml"/>
 			<formatter type="plain"/>
