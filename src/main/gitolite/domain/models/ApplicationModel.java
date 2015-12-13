@@ -3,12 +3,15 @@ package main.gitolite.domain.models;
 import java.io.File;
 import java.util.prefs.Preferences;
 
+import javafx.scene.image.Image;
+
 public class ApplicationModel {
 
     private static ApplicationModel instance;
     private Preferences prefs;
     private static String DIR_KEY = "repoDirectory";
     private static String DIR_DEFAULT = "noDirectoryDefined";
+    private Image applicationImage;
     
     private ApplicationModel()
     {
@@ -67,6 +70,15 @@ public class ApplicationModel {
     {
         String baseDir = prefs.get(DIR_KEY, DIR_DEFAULT);
         return new File(baseDir, "keyDir");
+    }
+    
+    public Image getIcon()
+    {
+        if (applicationImage == null)
+        {
+            applicationImage = new Image(getClass().getResourceAsStream("/resource/appIcon.png"));
+        }
+        return applicationImage;
     }
     
 }

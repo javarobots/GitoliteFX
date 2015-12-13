@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import main.gitolite.domain.models.ApplicationModel;
 
 public class Main extends Application {
 	@Override
@@ -18,6 +19,7 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Gitolite Repository Manager");
+			primaryStage.getIcons().add(ApplicationModel.getInstance().getIcon());
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
