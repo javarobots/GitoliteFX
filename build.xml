@@ -24,6 +24,12 @@
 		</fileset>
 	</path>
 	
+	<path id="junit-classpath">
+		<fileset dir="junitLibs">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
 	<property environment="env" />
 	<tstamp>
 		<format property="TODAY" pattern="yyyy-MM-dd" />
@@ -52,6 +58,11 @@
 			    <include name="**/*"/>
 			</fileset>
 		</copy>
+		<copy todir="${buildSrc}">
+			<fileset dir="tests">
+				<include name="**/*" />
+			</fileset>
+		</copy>
 	</target>
 				
 	<target name="copy_libs" description="Copy the library files to build directory">
@@ -69,6 +80,7 @@
 			includeantruntime="false"
 			target="1.8">
 			<classpath refid="master-classpath"/>
+			<classpath refid="junit-classpath" />
 		</javac>
 		<copy todir="${buildClass}">
 			<fileset dir="${projectSrc}">
@@ -105,5 +117,16 @@
             <zipfileset dir="${projectLibs}" includes="*.jar"/>
         </jar>
     </target>
+	
+	<target name="junitTests" depends="compile">
+		<junit printsummary="yes" haltonerror="no" haltonfailure="no">
+			<formatter type="xml"/>
+			<formatter type="plain"/>
+			<classpath refid="master-classpath" />
+			<classpath refid="junit-classpath" />
+			<classpath location="build/class" />
+			<test name="main.AllTest" />
+		</junit>	
+	</target>
 
 </project>

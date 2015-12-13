@@ -54,3 +54,5 @@ fabric.properties
 .classpath
 
 build/
+TEST-main.AllTest.txt
+TEST-main.AllTest.xml
