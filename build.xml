@@ -113,7 +113,11 @@
                 <attribute name="Rsrc-Class-Path" value="./ ${pathJars}"/>
             </manifest>
             <zipfileset src="jar-in-jar-loader.zip"/>
-            <fileset dir="${buildClass}"/>
+            <fileset dir="${buildClass}">
+            	<exclude name="**/*Test.*" />
+            	<exclude name="**/mocks/"/>
+            	<exclude name="**/*Tests.*" />
+            </fileset>
             <zipfileset dir="${projectLibs}" includes="*.jar"/>
         </jar>
     </target>
