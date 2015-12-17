@@ -7,8 +7,17 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.gitolite.domain.models.ApplicationModel;
 import main.gitolite.gui.controllers.AboutController;
 
+/**
+ * The About view displays build information about the application.
+ * The buildInfo.txt file is parsed for build number and build
+ * date. This is then shown in the dialog.
+ * 
+ * @author javarobots
+ *
+ */
 public class About extends AnchorPane {
     
     public About()
@@ -18,6 +27,7 @@ public class About extends AnchorPane {
             Stage stage = new Stage();
             stage.setResizable(false);
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.getIcons().add(ApplicationModel.getInstance().getIcon());
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("About.fxml"));
             loader.setRoot(this);
