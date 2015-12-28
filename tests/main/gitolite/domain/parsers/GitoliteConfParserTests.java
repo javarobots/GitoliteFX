@@ -1,6 +1,9 @@
 package main.gitolite.domain.parsers;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
@@ -11,7 +14,7 @@ import org.junit.Test;
 import main.gitolite.domain.mocks.MockConf;
 import main.gitolite.domain.models.ConfigGroup;
 import main.gitolite.domain.models.ConfigModel;
-import main.gitolite.domain.parsers.GitoliteConfParser;
+import main.gitolite.domain.models.ConfigRepo;
 
 public class GitoliteConfParserTests {
 
@@ -73,6 +76,24 @@ public class GitoliteConfParserTests {
 
 		// Assert
 		assertThat(group.getComments(), containsString("groups"));
+	}
+	
+	@Test
+	public final void parseProducesAConfigModelThatContainsRepos()
+	{
+	    // Arrange
+        GitoliteConfParser confParser = new GitoliteConfParser();
+        MockConf mockFile = new MockConf();
+
+        // Act
+        ConfigModel configModel = confParser.parse(mockFile.file);
+        List<ConfigRepo> repos = new ArrayList<>();
+        configModel.getRepos().forEach(repo -> repos.add(repo));
+        ConfigRepo repo = repos.get(0);
+        
+        //Assert
+        assertEquals(1, repos.size());
+        assertThat(repo.getName(), containsString("@projects baz"));
 	}
 
 }

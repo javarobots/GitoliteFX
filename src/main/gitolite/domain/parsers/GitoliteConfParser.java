@@ -9,8 +9,11 @@ import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.util.Arrays;
 
+import com.sun.org.apache.regexp.internal.REProgram;
+
 import main.gitolite.domain.models.ConfigGroup;
 import main.gitolite.domain.models.ConfigModel;
+import main.gitolite.domain.models.ConfigRepo;
 
 public class GitoliteConfParser {
 
@@ -21,6 +24,7 @@ public class GitoliteConfParser {
 		ConfigModel configModel = new ConfigModel();
 
 		String[] lines = conf.split("\n");
+		boolean nextRepo = false;
 
 		for (String line : lines) {
 			if (lineRepresentsAGroup(line)) {
@@ -28,6 +32,7 @@ public class GitoliteConfParser {
 			}
 
 			if (lineRepresentsARepo(line)) {
+			    configModel.addRepo(buildRepo(line));
 			}
 		}
 
@@ -61,6 +66,25 @@ public class GitoliteConfParser {
 		groupString = removeGroupNameFromStringArray(groupString);
 		buildGroupItemsAndComments(group, groupString);
 		return group;
+	}
+	
+	private ConfigRepo buildRepo(String line)
+	{
+	    ConfigRepo returnRepo = null;
+	    int index = line.indexOf(" ");
+	    if (index == -1)
+	    {
+	        return returnRepo;
+	    }
+	    
+	    String repoName = line.substring(++index).trim();
+	    index = repoName.indexOf("#");
+	    if (index > -1)
+	    {
+	        repoName = repoName.substring(0, index).trim();
+	    }
+	    returnRepo = new ConfigRepo(repoName);
+	    return returnRepo;
 	}
 
 	private void buildGroupItemsAndComments(ConfigGroup group, String[] groupString) {
