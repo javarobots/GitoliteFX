@@ -14,9 +14,11 @@ package main.gitolite.domain.models;
 public class ConfigModel {
 
 	private ConfigGroups groups;
+	private ConfigRepos repos;
 	
 	public ConfigModel() {
 		this.groups = new ConfigGroups();
+		this.repos = new ConfigRepos();
 	}
 
 	public void add(ConfigGroup g) {
@@ -25,5 +27,15 @@ public class ConfigModel {
 
 	public ConfigGroups getGroups() {
 		return this.groups;
+	}
+	
+	public void addRepo(ConfigRepo repo)
+	{
+	    this.repos.addRepo(repo);
+	}
+	
+	public ConfigRepos getRepos()
+	{
+	    return this.repos;
 	}
 }
