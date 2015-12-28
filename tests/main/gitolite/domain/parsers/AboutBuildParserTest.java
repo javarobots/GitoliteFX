@@ -9,14 +9,14 @@ import main.gitolite.domain.mocks.MockBuildInfo;
 public class AboutBuildParserTest {
 
     @Test
-    public void getBuildNumberTest()
+    public final void getBuildNumberTest()
     {
         AboutBuildParser instance = new AboutBuildParser(MockBuildInfo.BUILD_INFO);
         assertEquals("r98",instance.getBuildNumber());
     }
 
     @Test
-    public void getBuildDateTest()
+    public final void getBuildDateTest()
     {
         AboutBuildParser instance = new AboutBuildParser(MockBuildInfo.BUILD_INFO);
         assertEquals("2015-12-12", instance.getBuildDate());
