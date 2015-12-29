@@ -7,7 +7,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
    main.gitolite.domain.models.ConfigGroupsTests.class,
    main.gitolite.domain.parsers.GitoliteConfParserTests.class,
-   main.gitolite.domain.parsers.AboutBuildParserTest.class
+   main.gitolite.domain.parsers.AboutBuildParserTest.class,
+   main.gitolite.utility.StringTesterTest.class
 })
 public class AllTest {
 
