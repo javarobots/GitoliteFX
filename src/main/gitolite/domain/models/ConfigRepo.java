@@ -6,14 +6,12 @@ import java.util.List;
 public class ConfigRepo {
     
     private String repoName;
-    private List<String> users;
-    private List<ConfigGroup> groups;
+    private List<ConfigRepoRule> rules;
     
     public ConfigRepo(String repoName)
     {
-        this.users = new ArrayList<>();
-        this.groups = new ArrayList<>();
         this.repoName = repoName;
+        this.rules = new ArrayList<>();
     }
     
     public String getName()
@@ -21,24 +19,14 @@ public class ConfigRepo {
         return this.repoName;
     }
     
-    public List<String> getUsers()
+    public List<ConfigRepoRule> getRules()
     {
-        return this.users;
+        return this.rules;
     }
     
-    public void addUser(String user)
+    public void addRule(ConfigRepoRule rule)
     {
-        this.users.add(user);
-    }
-    
-    public List<ConfigGroup> getGroups()
-    {
-        return this.groups;
-    }
-    
-    public void addGroup(ConfigGroup group)
-    {
-        this.groups.add(group);
+        this.rules.add(rule);
     }
 
 }
