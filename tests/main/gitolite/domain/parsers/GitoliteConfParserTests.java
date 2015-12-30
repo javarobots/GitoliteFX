@@ -146,5 +146,50 @@ public class GitoliteConfParserTests {
         assertEquals("ashok", rwUser);
         assertEquals("wally", rUser);
     }
+	
+	@Test
+    public final void testSecondRepoWhichParseProduces()
+    {
+        // Arrange
+        GitoliteConfParser confParser = new GitoliteConfParser();
+        MockConf mockFile = new MockConf();
+
+        // Act
+        ConfigModel configModel = confParser.parse(mockFile.file);
+        List<ConfigRepo> repos = new ArrayList<>();
+        configModel.getRepos().forEach(repo -> repos.add(repo));
+        int repoIndex = 1;
+        ConfigRepo repo = repos.get(repoIndex);
+        String rwPlusGroup = null;
+        String denyBranch = null;
+        String denyUser = null;
+        String rwUser = null;
+        List<ConfigRepoRule> rules = repo.getRules();
+        for (ConfigRepoRule rule : rules)
+        {
+            if (rule.getPermission().equalsIgnoreCase("RW+"))
+            {
+                rwPlusGroup = rule.getGroupsAndUsers().get(0);
+            }
+            else if (rule.getPermission().equalsIgnoreCase("-"))
+            {
+                denyBranch = rule.getBranches().get(0);
+                denyUser = rule.getGroupsAndUsers().get(0);
+            }
+            else if (rule.getPermission().equalsIgnoreCase("RW"))
+            {
+                rwUser = rule.getGroupsAndUsers().get(0);
+            }
+        }
+        
+        //Assert
+        assertEquals(2, repos.size());
+        assertThat(repo.getName(), containsString("two"));
+        assertEquals(3,rules.size());
+        assertEquals("some", rwPlusGroup);
+        assertEquals("feature", denyBranch);
+        assertEquals("another", denyUser);
+        assertEquals("ashok", rwUser);
+    }
 
 }
