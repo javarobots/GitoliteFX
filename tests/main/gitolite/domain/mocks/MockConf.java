@@ -15,6 +15,10 @@ public class MockConf {
 			+ "R               =   wally\n"
 			+ "\n"
 			+ "option deny-rules           =   1           # options\n"
-			+ "config hooks.emailprefix    = '[%GL_REPO] ' # git-config\n";
+			+ "config hooks.emailprefix    = '[%GL_REPO] ' # git-config\n"
+			+ "repo two                                          # repos\n"
+			+ "RW+             =   some                    # rules\n"
+			+ "-       feature =   another\n"
+			+ "RW              =   ashok   ";
 
 }

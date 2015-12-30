@@ -93,7 +93,7 @@ public class GitoliteConfParserTests {
         ConfigRepo repo = repos.get(0);
         
         //Assert
-        assertEquals(1, repos.size());
+        assertEquals(2, repos.size());
         assertThat(repo.getName(), containsString("@projects baz"));
 	}
 	
@@ -137,7 +137,7 @@ public class GitoliteConfParserTests {
         }
         
         //Assert
-        assertEquals(1, repos.size());
+        assertEquals(2, repos.size());
         assertThat(repo.getName(), containsString("@projects baz"));
         assertEquals(4,rules.size());
         assertEquals("@staff", rwPlusGroup);

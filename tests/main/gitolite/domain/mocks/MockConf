@@ -11,3 +11,8 @@ repo @projects baz                              # repos
 
     option deny-rules           =   1           # options
     config hooks.emailprefix    = '[%GL_REPO] ' # git-config
+    
+repo two                              			# repos
+    RW+             =   some	                # rules
+    -       feature =   another
+    RW              =   ashok    
