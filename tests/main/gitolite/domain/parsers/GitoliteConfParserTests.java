@@ -15,6 +15,7 @@ import main.gitolite.domain.mocks.MockConf;
 import main.gitolite.domain.models.ConfigGroup;
 import main.gitolite.domain.models.ConfigModel;
 import main.gitolite.domain.models.ConfigRepo;
+import main.gitolite.domain.models.ConfigRepoRule;
 
 public class GitoliteConfParserTests {
 
@@ -95,5 +96,55 @@ public class GitoliteConfParserTests {
         assertEquals(1, repos.size());
         assertThat(repo.getName(), containsString("@projects baz"));
 	}
+	
+	@Test
+    public final void parseProducesAConfigModelThatContainsReposWithRules()
+    {
+        // Arrange
+        GitoliteConfParser confParser = new GitoliteConfParser();
+        MockConf mockFile = new MockConf();
+
+        // Act
+        ConfigModel configModel = confParser.parse(mockFile.file);
+        List<ConfigRepo> repos = new ArrayList<>();
+        configModel.getRepos().forEach(repo -> repos.add(repo));
+        ConfigRepo repo = repos.get(0);
+        String rwPlusGroup = null;
+        String denyBranch = null;
+        String denyUser = null;
+        String rwUser = null;
+        String rUser = null;
+        List<ConfigRepoRule> rules = repo.getRules();
+        for (ConfigRepoRule rule : rules)
+        {
+            if (rule.getPermission().equalsIgnoreCase("RW+"))
+            {
+                rwPlusGroup = rule.getGroupsAndUsers().get(0);
+            }
+            else if (rule.getPermission().equalsIgnoreCase("-"))
+            {
+                denyBranch = rule.getBranches().get(0);
+                denyUser = rule.getGroupsAndUsers().get(0);
+            }
+            else if (rule.getPermission().equalsIgnoreCase("RW"))
+            {
+                rwUser = rule.getGroupsAndUsers().get(0);
+            }
+            else if (rule.getPermission().equalsIgnoreCase("R"))
+            {
+                rUser = rule.getGroupsAndUsers().get(0);
+            }
+        }
+        
+        //Assert
+        assertEquals(1, repos.size());
+        assertThat(repo.getName(), containsString("@projects baz"));
+        assertEquals(4,rules.size());
+        assertEquals("@staff", rwPlusGroup);
+        assertEquals("master", denyBranch);
+        assertEquals("ashok", denyUser);
+        assertEquals("ashok", rwUser);
+        assertEquals("wally", rUser);
+    }
 
 }

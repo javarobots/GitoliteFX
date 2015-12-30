@@ -14,6 +14,8 @@ import com.sun.org.apache.regexp.internal.REProgram;
 import main.gitolite.domain.models.ConfigGroup;
 import main.gitolite.domain.models.ConfigModel;
 import main.gitolite.domain.models.ConfigRepo;
+import main.gitolite.domain.models.ConfigRepoRule;
+import main.gitolite.utility.StringTester;
 
 public class GitoliteConfParser {
 
@@ -22,21 +24,68 @@ public class GitoliteConfParser {
 
 	public ConfigModel parse(String conf) {
 		ConfigModel configModel = new ConfigModel();
-
+		ConfigRepo currentRepo = null;
+		
 		String[] lines = conf.split("\n");
-		boolean nextRepo = false;
+		boolean inRepo = false;
 
 		for (String line : lines) {
+		    //Process a group line
 			if (lineRepresentsAGroup(line)) {
 				configModel.add(buildGroup(line));
 			}
+			
+			//Process line within a repo
+			if (inRepo)
+			{
+			    if (lineRepresentsARepo(line))
+			    {
+			        inRepo = false;
+			    }
+			    else
+			    {
+			        processLineWithinARepo(currentRepo, line);
+			    }
+			}
 
-			if (lineRepresentsARepo(line)) {
-			    configModel.addRepo(buildRepo(line));
+			//Process a repo line
+			if (lineRepresentsARepo(line) && !inRepo) {
+			    currentRepo = buildRepo(line);
+			    configModel.addRepo(currentRepo);
+			    inRepo = true;
 			}
 		}
 
 		return configModel;
+	}
+	
+	private void processLineWithinARepo(ConfigRepo repo, String line)
+	{
+	    String[] lineValues = line.split("\\s+");
+	    if (StringTester.isStringValueARepoRule(lineValues[0]))
+	    {
+	        ConfigRepoRule rule = new ConfigRepoRule(lineValues[0]);
+	        int valueIndex = 1;
+	        //Process branches
+	        do
+	        {
+	            if (!lineValues[valueIndex].equalsIgnoreCase("="))
+	            {
+	                rule.addBranch(lineValues[valueIndex]);
+	            }
+	        }while(!lineValues[valueIndex++].equalsIgnoreCase("="));
+	        
+	        //Process groups and users
+	        do
+	        {
+	            if (!lineValues[valueIndex].startsWith("#"))
+	            {
+	                rule.addGroupOrUser(lineValues[valueIndex]);
+	            }
+	        }while(!lineValues[valueIndex++].startsWith("#") && valueIndex < lineValues.length);
+	        
+	        repo.addRule(rule);
+	    }
 	}
 
 	public void parse(Path path) throws IOException {
