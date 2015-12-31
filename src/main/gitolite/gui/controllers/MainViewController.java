@@ -29,18 +29,28 @@ public class MainViewController {
         
         checkForDefinedGitRepoDirectory();
         
-        gitoliteDirectorySelectMenuItem.setOnAction(event -> {
-            DirectoryChooser chooser = new DirectoryChooser();
-            File selectedDirectory = chooser.showDialog(null);
-            if (selectedDirectory != null)
-            {
-                ApplicationModel.getInstance().setRepoDirectory(selectedDirectory);
-                checkForDefinedGitRepoDirectory();
-            }
-        });
+        setupDirectorySelectMenuItem();
         
         aboutMenuItem.setOnAction(event -> {
             new About();
+        });
+    }
+
+    private void setupDirectorySelectMenuItem()
+    {
+        gitoliteDirectorySelectMenuItem.setOnAction(event -> {
+            ApplicationModel model = ApplicationModel.getInstance();
+            DirectoryChooser chooser = new DirectoryChooser();
+            if (model.isRepoDirectoryDefined())
+            {
+                chooser.setInitialDirectory(model.getRepoDirectory());
+            }
+            File selectedDirectory = chooser.showDialog(null);
+            if (selectedDirectory != null)
+            {
+                model.setRepoDirectory(selectedDirectory);
+                checkForDefinedGitRepoDirectory();
+            }
         });
     }
 
