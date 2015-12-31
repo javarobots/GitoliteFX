@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<fx:root prefHeight="400.0" prefWidth="600.0" type="AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40">
+   <children>
+      <GridPane hgap="10.0" vgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="250.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.rowSpan="2">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label text="Repos:" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" text="Del" />
+                        <Button mnemonicParsing="false" text="Add" />
+                     </children>
+                  </HBox>
+                  <TableView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Repo" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+            <VBox prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label text="Users:" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" text="Edit" />
+                        <Button mnemonicParsing="false" text="Del" />
+                        <Button mnemonicParsing="false" text="Add" />
+                     </children>
+                  </HBox>
+                  <TableView prefWidth="200.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="User" />
+                      <TableColumn prefWidth="75.0" text="Permission" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+            <VBox prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label text="Groups:" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" text="Edit" />
+                        <Button mnemonicParsing="false" text="Del" />
+                        <Button mnemonicParsing="false" text="Add" />
+                     </children>
+                  </HBox>
+                  <TableView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn prefWidth="75.0" text="Group" />
+                        <TableColumn prefWidth="75.0" text="Members" />
+                        <TableColumn prefWidth="75.0" text="Permission" />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</fx:root>
