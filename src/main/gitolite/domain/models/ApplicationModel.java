@@ -66,6 +66,11 @@ public class ApplicationModel {
        return new File(baseDir, "conf");
     }
     
+    public File getConfFile()
+    {
+        return new File(getConfDir(), "gitolite.conf");
+    }
+    
     public File getKeyDir()
     {
         String baseDir = prefs.get(DIR_KEY, DIR_DEFAULT);
