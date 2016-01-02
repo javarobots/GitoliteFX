@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<fx:root prefHeight="400.0" prefWidth="600.0" type="AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40">
+<fx:root prefHeight="400.0" prefWidth="600.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane hgap="10.0" vgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -25,11 +24,11 @@
                      <children>
                         <Label text="Repos:" />
                         <Region HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" text="Del" />
-                        <Button mnemonicParsing="false" text="Add" />
+                        <Button fx:id="repoDeleteButton" mnemonicParsing="false" text="Del" />
+                        <Button fx:id="repoAddButton" mnemonicParsing="false" text="Add" />
                      </children>
                   </HBox>
-                  <TableView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="repoTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                     <columns>
                       <TableColumn prefWidth="75.0" text="Repo" />
                     </columns>
@@ -42,12 +41,12 @@
                      <children>
                         <Label text="Users:" />
                         <Region HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" text="Edit" />
-                        <Button mnemonicParsing="false" text="Del" />
-                        <Button mnemonicParsing="false" text="Add" />
+                        <Button fx:id="userEditButton" mnemonicParsing="false" text="Edit" />
+                        <Button fx:id="userDeleteButton" mnemonicParsing="false" text="Del" />
+                        <Button fx:id="userAddButton" mnemonicParsing="false" text="Add" />
                      </children>
                   </HBox>
-                  <TableView prefWidth="200.0">
+                  <TableView fx:id="userTableView" prefWidth="200.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="User" />
                       <TableColumn prefWidth="75.0" text="Permission" />
@@ -61,12 +60,12 @@
                      <children>
                         <Label text="Groups:" />
                         <Region HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" text="Edit" />
-                        <Button mnemonicParsing="false" text="Del" />
-                        <Button mnemonicParsing="false" text="Add" />
+                        <Button fx:id="groupEditButton" mnemonicParsing="false" text="Edit" />
+                        <Button fx:id="groupDeleteButton" mnemonicParsing="false" text="Del" />
+                        <Button fx:id="groupAddButton" mnemonicParsing="false" text="Add" />
                      </children>
                   </HBox>
-                  <TableView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="groupTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <columns>
                         <TableColumn prefWidth="75.0" text="Group" />
                         <TableColumn prefWidth="75.0" text="Members" />
