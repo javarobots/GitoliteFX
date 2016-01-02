@@ -3,18 +3,21 @@ package main.gitolite.domain.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class ConfigRepo {
     
-    private String repoName;
+    private StringProperty repoName;
     private List<ConfigRepoRule> rules;
     
     public ConfigRepo(String repoName)
     {
-        this.repoName = repoName;
+        this.repoName = new SimpleStringProperty(repoName);
         this.rules = new ArrayList<>();
     }
     
-    public String getName()
+    public StringProperty getRepoName()
     {
         return this.repoName;
     }
