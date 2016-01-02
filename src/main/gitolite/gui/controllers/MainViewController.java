@@ -12,6 +12,7 @@ import javafx.stage.DirectoryChooser;
 import main.gitolite.domain.models.ApplicationModel;
 import main.gitolite.gui.views.About;
 import main.gitolite.gui.views.KeyDirectory;
+import main.gitolite.gui.views.Repos;
 
 
 
@@ -76,6 +77,7 @@ public class MainViewController {
     private void addTabContent()
     {
         publicKeysTab.setContent(new KeyDirectory());
+        reposTab.setContent(new Repos());
     }
 
     private void setupCloseMenuItem()
