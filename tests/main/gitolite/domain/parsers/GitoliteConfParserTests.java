@@ -94,7 +94,7 @@ public class GitoliteConfParserTests {
         
         //Assert
         assertEquals(2, repos.size());
-        assertThat(repo.getName(), containsString("@projects baz"));
+        assertThat(repo.getRepoName().get(), containsString("@projects baz"));
 	}
 	
 	@Test
@@ -138,7 +138,7 @@ public class GitoliteConfParserTests {
         
         //Assert
         assertEquals(2, repos.size());
-        assertThat(repo.getName(), containsString("@projects baz"));
+        assertThat(repo.getRepoName().get(), containsString("@projects baz"));
         assertEquals(4,rules.size());
         assertEquals("@staff", rwPlusGroup);
         assertEquals("master", denyBranch);
@@ -184,7 +184,7 @@ public class GitoliteConfParserTests {
         
         //Assert
         assertEquals(2, repos.size());
-        assertThat(repo.getName(), containsString("two"));
+        assertThat(repo.getRepoName().get(), containsString("two"));
         assertEquals(3,rules.size());
         assertEquals("some", rwPlusGroup);
         assertEquals("feature", denyBranch);
