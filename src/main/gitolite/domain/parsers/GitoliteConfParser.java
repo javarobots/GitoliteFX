@@ -15,7 +15,7 @@ import main.gitolite.domain.models.ConfigGroup;
 import main.gitolite.domain.models.ConfigModel;
 import main.gitolite.domain.models.ConfigRepo;
 import main.gitolite.domain.models.ConfigRepoRule;
-import main.gitolite.utility.StringTester;
+import main.gitolite.utility.StringUtility;
 
 public class GitoliteConfParser {
 
@@ -62,7 +62,7 @@ public class GitoliteConfParser {
 	private void processLineWithinARepo(ConfigRepo repo, String line)
 	{
 	    String[] lineValues = line.split("\\s+");
-	    if (StringTester.isStringValueARepoRule(lineValues[0]))
+	    if (StringUtility.isStringValueARepoRule(lineValues[0]))
 	    {
 	        ConfigRepoRule rule = new ConfigRepoRule(lineValues[0]);
 	        int valueIndex = 1;

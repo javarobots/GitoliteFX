@@ -36,6 +36,9 @@ public class ReposController {
     @FXML private TableView<ConfigRepoRule> groupTableView;
     
     private ObservableList<ConfigRepo> repos;
+    private ObservableList<ConfigRepoRule> userRules;
+    private ObservableList<ConfigRepoRule> groupRules;
+    private ConfigRepo selectedRepo;
     
     public void initialize()
     {
@@ -103,6 +106,19 @@ public class ReposController {
         
         repos = FXCollections.observableArrayList();
         repoTableView.setItems(repos);
+        
+        repoTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)-> {
+            selectedRepo = newVal;
+            if (newVal != null)
+            {
+                repoDeleteButton.setDisable(false);
+                //add rules through method
+            }
+            else
+            {
+                repoDeleteButton.setDisable(true);
+            }
+        });
     }
 
     private String readConfFile()

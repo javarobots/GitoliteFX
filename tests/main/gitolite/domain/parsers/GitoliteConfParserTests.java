@@ -117,20 +117,20 @@ public class GitoliteConfParserTests {
         List<ConfigRepoRule> rules = repo.getRules();
         for (ConfigRepoRule rule : rules)
         {
-            if (rule.getPermission().equalsIgnoreCase("RW+"))
+            if (rule.getPermission().get().equalsIgnoreCase("RW+"))
             {
                 rwPlusGroup = rule.getGroupsAndUsers().get(0);
             }
-            else if (rule.getPermission().equalsIgnoreCase("-"))
+            else if (rule.getPermission().get().equalsIgnoreCase("-"))
             {
                 denyBranch = rule.getBranches().get(0);
                 denyUser = rule.getGroupsAndUsers().get(0);
             }
-            else if (rule.getPermission().equalsIgnoreCase("RW"))
+            else if (rule.getPermission().get().equalsIgnoreCase("RW"))
             {
                 rwUser = rule.getGroupsAndUsers().get(0);
             }
-            else if (rule.getPermission().equalsIgnoreCase("R"))
+            else if (rule.getPermission().get().equalsIgnoreCase("R"))
             {
                 rUser = rule.getGroupsAndUsers().get(0);
             }
@@ -167,16 +167,16 @@ public class GitoliteConfParserTests {
         List<ConfigRepoRule> rules = repo.getRules();
         for (ConfigRepoRule rule : rules)
         {
-            if (rule.getPermission().equalsIgnoreCase("RW+"))
+            if (rule.getPermission().get().equalsIgnoreCase("RW+"))
             {
                 rwPlusGroup = rule.getGroupsAndUsers().get(0);
             }
-            else if (rule.getPermission().equalsIgnoreCase("-"))
+            else if (rule.getPermission().get().equalsIgnoreCase("-"))
             {
                 denyBranch = rule.getBranches().get(0);
                 denyUser = rule.getGroupsAndUsers().get(0);
             }
-            else if (rule.getPermission().equalsIgnoreCase("RW"))
+            else if (rule.getPermission().get().equalsIgnoreCase("RW"))
             {
                 rwUser = rule.getGroupsAndUsers().get(0);
             }
