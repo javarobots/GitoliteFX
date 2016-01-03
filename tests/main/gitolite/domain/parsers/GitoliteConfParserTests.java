@@ -117,20 +117,20 @@ public class GitoliteConfParserTests {
         List<ConfigRepoRule> rules = repo.getRules();
         for (ConfigRepoRule rule : rules)
         {
-            if (rule.getPermission().get().equalsIgnoreCase("RW+"))
+            if (rule.permissionProperty().get().equalsIgnoreCase("RW+"))
             {
                 rwPlusGroup = rule.getGroupsAndUsers().get(0);
             }
-            else if (rule.getPermission().get().equalsIgnoreCase("-"))
+            else if (rule.permissionProperty().get().equalsIgnoreCase("-"))
             {
                 denyBranch = rule.getBranches().get(0);
                 denyUser = rule.getGroupsAndUsers().get(0);
             }
-            else if (rule.getPermission().get().equalsIgnoreCase("RW"))
+            else if (rule.permissionProperty().get().equalsIgnoreCase("RW"))
             {
                 rwUser = rule.getGroupsAndUsers().get(0);
             }
-            else if (rule.getPermission().get().equalsIgnoreCase("R"))
+            else if (rule.permissionProperty().get().equalsIgnoreCase("R"))
             {
                 rUser = rule.getGroupsAndUsers().get(0);
             }
@@ -167,16 +167,16 @@ public class GitoliteConfParserTests {
         List<ConfigRepoRule> rules = repo.getRules();
         for (ConfigRepoRule rule : rules)
         {
-            if (rule.getPermission().get().equalsIgnoreCase("RW+"))
+            if (rule.permissionProperty().get().equalsIgnoreCase("RW+"))
             {
                 rwPlusGroup = rule.getGroupsAndUsers().get(0);
             }
-            else if (rule.getPermission().get().equalsIgnoreCase("-"))
+            else if (rule.permissionProperty().get().equalsIgnoreCase("-"))
             {
                 denyBranch = rule.getBranches().get(0);
                 denyUser = rule.getGroupsAndUsers().get(0);
             }
-            else if (rule.getPermission().get().equalsIgnoreCase("RW"))
+            else if (rule.permissionProperty().get().equalsIgnoreCase("RW"))
             {
                 rwUser = rule.getGroupsAndUsers().get(0);
             }
