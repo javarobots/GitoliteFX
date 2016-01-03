@@ -28,7 +28,7 @@
                         <Button fx:id="repoAddButton" mnemonicParsing="false" text="Add" />
                      </children>
                   </HBox>
-                  <TableView fx:id="repoTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="repoTableView" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                     <columns>
                       <TableColumn prefWidth="75.0" text="Repo" />
                     </columns>
@@ -46,7 +46,7 @@
                         <Button fx:id="userAddButton" mnemonicParsing="false" text="Add" />
                      </children>
                   </HBox>
-                  <TableView fx:id="userTableView" prefWidth="200.0">
+                  <TableView fx:id="userTableView" focusTraversable="false" prefWidth="200.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="User" />
                       <TableColumn prefWidth="75.0" text="Permission" />
@@ -65,7 +65,7 @@
                         <Button fx:id="groupAddButton" mnemonicParsing="false" text="Add" />
                      </children>
                   </HBox>
-                  <TableView fx:id="groupTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="groupTableView" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <columns>
                         <TableColumn prefWidth="75.0" text="Group" />
                         <TableColumn prefWidth="75.0" text="Members" />
