@@ -87,13 +87,19 @@ public class ReposController {
         userTableView.getColumns().clear();
         TableColumn<ConfigRepoRule, String> userCol = new TableColumn<>("User");
         userCol.prefWidthProperty().bind(userTableView.widthProperty().multiply(.33));
+        userCol.setCellValueFactory(cellData -> cellData.getValue().groupUserProperty());
         userTableView.getColumns().add(userCol);
         TableColumn<ConfigRepoRule, String> branchCol = new TableColumn<>("Branch");
         branchCol.prefWidthProperty().bind(userTableView.widthProperty().multiply(.33));
+        branchCol.setCellValueFactory(cellData -> cellData.getValue().branchProperty());
         userTableView.getColumns().add(branchCol);
         TableColumn<ConfigRepoRule, String> permissionCol = new TableColumn<>("Permission");
         permissionCol.prefWidthProperty().bind(userTableView.widthProperty().multiply(.34));
+        permissionCol.setCellValueFactory(cellData -> cellData.getValue().permissionProperty());
         userTableView.getColumns().add(permissionCol);
+        
+        userRules = FXCollections.observableArrayList();
+        userTableView.setItems(userRules);
     }
 
     private void setupRepoTable()
@@ -109,10 +115,14 @@ public class ReposController {
         
         repoTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)-> {
             selectedRepo = newVal;
+            userRules.clear();
             if (newVal != null)
             {
                 repoDeleteButton.setDisable(false);
-                //add rules through method
+                for (ConfigRepoRule rule : selectedRepo.getRules())
+                {
+                    userRules.add(rule);
+                }
             }
             else
             {

@@ -42,7 +42,7 @@ public class GitoliteConfParser {
 			    {
 			        inRepo = false;
 			    }
-			    else
+			    else if (!line.isEmpty())
 			    {
 			        processLineWithinARepo(currentRepo, line);
 			    }
@@ -62,6 +62,10 @@ public class GitoliteConfParser {
 	private void processLineWithinARepo(ConfigRepo repo, String line)
 	{
 	    String[] lineValues = line.split("\\s+");
+	    if (lineValues[0].isEmpty())
+	    {
+	        lineValues = Arrays.copyOfRange(lineValues, 1, lineValues.length);
+	    }
 	    if (StringUtility.isStringValueARepoRule(lineValues[0]))
 	    {
 	        ConfigRepoRule rule = new ConfigRepoRule(lineValues[0]);
