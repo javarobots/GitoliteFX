@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.Optional;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import main.gitolite.domain.models.ApplicationModel;
+import main.gitolite.domain.models.ConfigGroup;
 import main.gitolite.domain.models.ConfigModel;
 import main.gitolite.domain.models.ConfigRepo;
 import main.gitolite.domain.models.ConfigRepoRule;
@@ -35,6 +38,7 @@ public class ReposController {
     @FXML private TableView<ConfigRepoRule> userTableView;
     @FXML private TableView<ConfigRepoRule> groupTableView;
     
+    private ConfigModel model;
     private ObservableList<ConfigRepo> repos;
     private ObservableList<ConfigRepoRule> userRules;
     private ObservableList<ConfigRepoRule> groupRules;
@@ -52,13 +56,11 @@ public class ReposController {
         
         setupGroupTable();
         
-        
-        
         String confFile = readConfFile();
         if (!confFile.isEmpty())
         {
             GitoliteConfParser parser = new GitoliteConfParser();
-            ConfigModel model = parser.parse(confFile);
+            model = parser.parse(confFile);
             Iterator<ConfigRepo> repos =  model.getRepos().iterator();
             while (repos.hasNext())
             {
@@ -73,13 +75,38 @@ public class ReposController {
         groupTableView.getColumns().clear();
         TableColumn<ConfigRepoRule, String> groupUserCol = new TableColumn<>("User");
         groupUserCol.prefWidthProperty().bind(groupTableView.widthProperty().multiply(.33));
+        groupUserCol.setCellValueFactory(cellData -> cellData.getValue().groupUserProperty());
         groupTableView.getColumns().add(groupUserCol);
         TableColumn<ConfigRepoRule, String> membersCol = new TableColumn<>("Members");
         membersCol.prefWidthProperty().bind(groupTableView.widthProperty().multiply(.33));
+        membersCol.setCellValueFactory(cellData -> buildMemberList(cellData.getValue()));
         groupTableView.getColumns().add(membersCol);
         TableColumn<ConfigRepoRule, String> groupPermissionCol = new TableColumn<>("Permission");
         groupPermissionCol.prefWidthProperty().bind(groupTableView.widthProperty().multiply(.34));
+        groupPermissionCol.setCellValueFactory(cellData -> cellData.getValue().permissionProperty());
         groupTableView.getColumns().add(groupPermissionCol);
+        
+        groupRules = FXCollections.observableArrayList();
+        groupTableView.setItems(groupRules);
+    }
+    
+    private StringProperty buildMemberList(ConfigRepoRule rule)
+    {
+        Optional<ConfigGroup> group = Optional.ofNullable(model.getGroupByName(rule.groupUserProperty().get()));
+        if (group.isPresent())
+        {
+            StringBuilder memberBuilder = new StringBuilder();
+            for (String item : group.get().getItems())
+            {
+                memberBuilder.append(item).append("\n");
+            }
+            memberBuilder.deleteCharAt(memberBuilder.length()-1);
+            return new SimpleStringProperty(memberBuilder.toString());
+        }
+        else
+        {
+            return new SimpleStringProperty("");
+        }
     }
 
     private void setupUserTable()
@@ -116,12 +143,20 @@ public class ReposController {
         repoTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)-> {
             selectedRepo = newVal;
             userRules.clear();
+            groupRules.clear();
             if (newVal != null)
             {
                 repoDeleteButton.setDisable(false);
                 for (ConfigRepoRule rule : selectedRepo.getRules())
                 {
-                    userRules.add(rule);
+                    if (rule.groupUserProperty().getValue().startsWith("@"))
+                    {
+                        groupRules.add(rule);
+                    }
+                    else
+                    {
+                        userRules.add(rule);                        
+                    }
                 }
             }
             else

@@ -1,5 +1,8 @@
 package main.gitolite.domain.models;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * GitoliteConfigModel.java
  * 
@@ -15,14 +18,22 @@ public class ConfigModel {
 
 	private ConfigGroups groups;
 	private ConfigRepos repos;
+	private Map<String, ConfigGroup> nameToGroupMap;
 	
 	public ConfigModel() {
 		this.groups = new ConfigGroups();
 		this.repos = new ConfigRepos();
+		nameToGroupMap = new HashMap<>();
 	}
 
 	public void add(ConfigGroup g) {
 		this.groups.add(g);
+		this.nameToGroupMap.put(g.getName(), g);
+	}
+	
+	public ConfigGroup getGroupByName(String name)
+	{
+	    return this.nameToGroupMap.get(name);
 	}
 
 	public ConfigGroups getGroups() {

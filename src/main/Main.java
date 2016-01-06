@@ -20,6 +20,8 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Gitolite Repository Manager");
 			primaryStage.getIcons().add(ApplicationModel.getInstance().getIcon());
+			primaryStage.setHeight(600);
+			primaryStage.setWidth(800);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
