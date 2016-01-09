@@ -22,6 +22,7 @@ import main.gitolite.domain.models.ConfigRepo;
 import main.gitolite.domain.models.ConfigRepoRule;
 import main.gitolite.domain.parsers.GitoliteConfParser;
 import main.gitolite.utility.ButtonUtility;
+import main.gitolite.utility.LaunchGitBash;
 
 public class ReposController {
     
@@ -33,6 +34,7 @@ public class ReposController {
     @FXML private Button groupEditButton;
     @FXML private Button groupDeleteButton;
     @FXML private Button groupAddButton;
+    @FXML private Button terminalButton;
     
     @FXML private TableView<ConfigRepo> repoTableView;
     @FXML private TableView<ConfigRepoRule> userTableView;
@@ -68,6 +70,14 @@ public class ReposController {
             }
         }
         
+        ButtonUtility.setIconOnButton(terminalButton, FontAwesomeIcon.TERMINAL);
+        terminalButton.setOnAction(event -> {
+            LaunchGitBash launchGit = new LaunchGitBash();
+            if (launchGit.doesExecutableExist())
+            {
+                launchGit.launchGitBash();
+            }
+        });
     }
 
     private void setupGroupTable()
