@@ -10,15 +10,6 @@
    <children>
       <VBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <Label text="Git Bash:" />
-                  <Button fx:id="terminalButton" mnemonicParsing="false" text="Button" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </HBox>
             <GridPane hgap="10.0" vgap="10.0" VBox.vgrow="ALWAYS">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="250.0" />
