@@ -8,7 +8,8 @@ import org.junit.runners.Suite;
    main.gitolite.domain.models.ConfigGroupsTests.class,
    main.gitolite.domain.parsers.GitoliteConfParserTests.class,
    main.gitolite.domain.parsers.AboutBuildParserTest.class,
-   main.gitolite.utility.StringUtilityTest.class
+   main.gitolite.utility.StringUtilityTest.class,
+   main.gitolite.utility.SystemUtilityTest.class
 })
 public class AllTest {
 
