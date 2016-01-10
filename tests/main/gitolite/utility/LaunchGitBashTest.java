@@ -1,8 +1,5 @@
 package main.gitolite.utility;
 
-import static org.junit.Assert.assertThat;
-
-import static org.hamcrest.CoreMatchers.*;
 import org.junit.Test;
 
 /**
@@ -13,20 +10,6 @@ import org.junit.Test;
  */
 public class LaunchGitBashTest {
 
-    @Test
-    public void testGetSystemUsername()
-    {
-        LaunchGitBash instance = new LaunchGitBash();
-        assertThat(instance.getUserName(), not(nullValue()));
-    }
-    
-    @Test
-    public void testDoesExecutableExist()
-    {
-        LaunchGitBash instance = new LaunchGitBash();
-        assertThat(instance.doesExecutableExist(), is(true));
-    }
-    
     @Test
     public void testLaunchExecutable()
     {
