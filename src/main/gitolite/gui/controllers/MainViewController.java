@@ -11,6 +11,7 @@ import javafx.scene.control.Tab;
 import javafx.stage.DirectoryChooser;
 import main.gitolite.domain.models.ApplicationModel;
 import main.gitolite.gui.views.About;
+import main.gitolite.gui.views.GitConsole;
 import main.gitolite.gui.views.KeyDirectory;
 import main.gitolite.gui.views.Repos;
 
@@ -23,6 +24,7 @@ public class MainViewController {
     @FXML private MenuItem gitoliteDirectorySelectMenuItem;
     @FXML private Tab publicKeysTab;
     @FXML private Tab reposTab;
+    @FXML private Tab gitConsoleTab;
     
     public void initialize()
     {
@@ -35,6 +37,8 @@ public class MainViewController {
         aboutMenuItem.setOnAction(event -> {
             new About();
         });
+        
+        gitConsoleTab.setContent(new GitConsole());
     }
 
     private void setupDirectorySelectMenuItem()

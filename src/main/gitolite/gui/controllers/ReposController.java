@@ -34,7 +34,6 @@ public class ReposController {
     @FXML private Button groupEditButton;
     @FXML private Button groupDeleteButton;
     @FXML private Button groupAddButton;
-    @FXML private Button terminalButton;
     
     @FXML private TableView<ConfigRepo> repoTableView;
     @FXML private TableView<ConfigRepoRule> userTableView;
@@ -69,15 +68,6 @@ public class ReposController {
                 this.repos.add(repos.next());
             }
         }
-        
-        ButtonUtility.setIconOnButton(terminalButton, FontAwesomeIcon.TERMINAL);
-        terminalButton.setOnAction(event -> {
-            LaunchGitBash launchGit = new LaunchGitBash();
-            if (launchGit.doesExecutableExist())
-            {
-                launchGit.launchGitBash();
-            }
-        });
     }
 
     private void setupGroupTable()
