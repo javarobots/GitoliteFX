@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -21,8 +22,8 @@ import main.gitolite.domain.models.ConfigModel;
 import main.gitolite.domain.models.ConfigRepo;
 import main.gitolite.domain.models.ConfigRepoRule;
 import main.gitolite.domain.parsers.GitoliteConfParser;
+import main.gitolite.gui.comparators.RepositoryNameComparator;
 import main.gitolite.utility.ButtonUtility;
-import main.gitolite.utility.LaunchGitBash;
 
 public class ReposController {
     
@@ -47,8 +48,6 @@ public class ReposController {
     
     public void initialize()
     {
-        
-        
         setupButtons();
         
         setupRepoTable();
@@ -62,10 +61,14 @@ public class ReposController {
         {
             GitoliteConfParser parser = new GitoliteConfParser();
             model = parser.parse(confFile);
-            Iterator<ConfigRepo> repos =  model.getRepos().iterator();
-            while (repos.hasNext())
+//            Iterator<ConfigRepo> repos =  model.getRepos().iterator();
+//            while (repos.hasNext())
+//            {
+//                this.repos.add(repos.next());
+//            }
+            for (ConfigRepo repo: model.getRepos().getSortedRepos())
             {
-                this.repos.add(repos.next());
+                this.repos.add(repo);
             }
         }
     }
@@ -131,14 +134,14 @@ public class ReposController {
 
     private void setupRepoTable()
     {
+        repos = FXCollections.observableArrayList();
+        repoTableView.setItems(repos);
+        
         repoTableView.getColumns().clear();
         TableColumn<ConfigRepo, String> repoCol = new TableColumn<>("Repository");
         repoCol.prefWidthProperty().bind(repoTableView.widthProperty());
         repoCol.setCellValueFactory(cellData -> cellData.getValue().getRepoName());
         repoTableView.getColumns().add(repoCol);
-        
-        repos = FXCollections.observableArrayList();
-        repoTableView.setItems(repos);
         
         repoTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)-> {
             selectedRepo = newVal;

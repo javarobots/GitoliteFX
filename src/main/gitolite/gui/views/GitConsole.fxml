@@ -17,8 +17,9 @@
                </children>
             </HBox>
             <Label text="1. git commit -a: Commit the existing changes." />
-            <Label text="2. git pull: Ensure the local condifuration is up to date. Resolve merger conflicts if necessary." />
+            <Label text="2. git pull: Ensure the local configuration is up to date. Resolve merge conflicts if necessary." />
             <Label text="3. git push: Publish the changes to the remote repository server." />
+            <Label text="4. exit: Close Git Bash utility." />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

@@ -56,3 +56,4 @@ fabric.properties
 build/
 TEST-main.AllTest.txt
 TEST-main.AllTest.xml
+src/main/gitolite/utility/LaunchGitCmd.java
