@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="runnable-jar" name="GitoliteFX">
+<project default="runnable-jar" name="GitoliteFX" xmlns:ivy="antlib:org.apache.ivy.ant">
 	
 	<!-- Class with main method -->
 	<property name="mainClass" value="main.Main" />
@@ -37,6 +37,11 @@
 	</tstamp>
 	
 	<!-- Start of targets -->
+	
+	<target name="resolve" description="resolve dependencies with ivy">
+		<ivy:resolve />
+	    <ivy:retrieve sync="false" type="jar" pattern="libs/[artifact]-[revision].[ext]"/>
+	</target>
 			
 	<target name="clean" description="Delete the build directories">
 		<echo message="Cleaning build directory" />
